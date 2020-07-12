@@ -35,30 +35,33 @@ begin
 
 		song_link = driver.current_url
 
-		driver.navigate.to "https://ytmp3.cc/en13/" 
+		driver.navigate.to "https://en.savefrom.net/18/" 
 
-		search_mp3 = driver.find_element(:xpath,"/html/body/div[2]/div[1]/div[1]/form/input[1]")
+		search_video = driver.find_element(:xpath,"/html/body/div/div[1]/div[1]/div/div[1]/div[2]/div/form/div[1]/div/input")
 
-		search_mp3.send_keys song_link
+		search_video.send_keys song_link
 
-		convert_button = driver.find_element(:xpath,"/html/body/div[2]/div[1]/div[1]/form/input[2]")
+		convert_button = driver.find_element(:xpath,"//*[@id='sf_submit']")
 
 		convert_button.click
 
-		sleep(3)
-		download_song = wait.until { driver.find_element(:xpath,"//*[@id='buttons']/a[1]") }
+		sleep(15)
+		download_song = wait.until { driver.find_element(:xpath,"//*[@id='sf_result']/div/div/div[2]/div[2]/div[1]/a") }
 
 		original_window = driver.window_handle
 
 		download_song.click
 
+
 		driver.switch_to.window original_window
+		
+		
 		
 		#driver.close
 		main_url = song_link
 		driver.navigate.back
 
-		sleep(2)
+		sleep(5)
 		song_name = driver.title
 		driver.action.key_down(:shift).send_keys('n').key_up(:shift).perform
 
